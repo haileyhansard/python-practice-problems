@@ -42,15 +42,26 @@
 def uncover_spy(n, trust):
     if len(trust) < n-1:
         return -1
-
+    #set up pointer to track the count of how many people truster gives trust to
     truster = [0] * (n + 1)
+    #set up pointer to track the count of how many people give trust to the trustee
     trustee = [0] * (n + 1)
 
-    for x, y in trust:
-        trustee[x] += 1
-        truster[y] += 1
+    for a, b in trust:
+        trustee[a] += 1
+        truster[b] += 1
 
     for i in range(1, n + 1):
+        print(f'truster/indegree receives trust from: {truster[i]}')
+        print(f'trustee/outdegree gives trust to: {trustee[i]}')
+        #check if count of people trusting the trustee is equal to population minus 1
+        #and if element 
         if truster[i] == n - 1 and trustee[i] == 0:
             return i
     return -1
+
+n = 3
+trust = [[1, 3], [2, 3]]
+print(uncover_spy(n, trust)) #returns 3
+#print(uncover_spy(2, [[1, 2]])) #returns 2
+#print(uncover_spy(3, [[1, 3], [2, 3], [3, 1]])) #return -1
